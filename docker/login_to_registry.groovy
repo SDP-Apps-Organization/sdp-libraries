@@ -12,6 +12,6 @@ void call(){
   
   withCredentials([usernamePassword(credentialsId: image_repo_cred, passwordVariable: 'pass', usernameVariable: 'user')]) {
     sh "echo username:${pass}"
-    sh "echo ${pass} | docker login -u ${user} --password-stdin ${image_repo}"
+    sh "docker login -u ${user} -p ${pass} ${image_repo}"
   }
 }
