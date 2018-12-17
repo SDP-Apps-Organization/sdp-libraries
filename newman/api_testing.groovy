@@ -1,6 +1,7 @@
-def call(){
+def call(app_env){
   stage "API Testing", {
-    run_tests = config.dev_Run_Newman_Tests ?:
+    env_variable = app_env.appName + "_Run_Newman_Tests"
+    run_tests = config.env_variable ?:
           false
     if (run_tests){
       echo "running api tests"
