@@ -1,4 +1,4 @@
-def call(app_env){
+void call(app_env){
   stage "API Testing", {
     env_variable = app_env.appName + "_Run_Newman_Tests"
     run_tests = config.env_variable ?:
