@@ -5,6 +5,9 @@ void call(app_env){
           false
     if (run_tests){
       echo "running api tests"
+      docker.image("aleckeller13/newman").inside{
+        sh "newman run"
+      }
     }
     else{
       echo "skipping running api tests"
