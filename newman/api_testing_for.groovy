@@ -6,7 +6,19 @@ void call(app_env){
     if (run_tests){
       echo "running api tests"
       docker.image("aleckeller13/newman").inside{
-        sh "newman run"
+        try{
+          dir('collections') {
+            def files = findFiles(glob: '*.json')
+            files.each{
+              echo "Running ${it.name} collection"
+              sh "newman run ${it.name}"
+            }
+          }
+        }
+        catch(ex){
+          error "Newman tests failed with: ${ex}"
+
+        }
       }
     }
     else{
