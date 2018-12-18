@@ -6,7 +6,8 @@ void call(app_env){
       def syntax_command = ""
       if (fileExists("package.json")){
         img = "node"
-        unit_command = "npm install --only=dev; npm test"
+        //unit_command = "npm install --only=dev; npm test"
+        unit_command = "ls"
         syntax_command = "/bin/bash -c \'walk() { cd \"\$1\"; for file in *; do if [ -d \"\$file\" ] && [ \"\$file\" != \"node_modules\" ]; then walk \"\$1/\$file\"; else if [[ ${file: -3} == \".js\" ]]; then node -c \"\$file\"; fi; fi; cd \"\$1\"; done; }; walk `pwd`\'"
       }
       else if (fileExists("pom.xml")){
@@ -19,7 +20,9 @@ void call(app_env){
       }
       docker.image(img).inside{
        unstash "workspace"
+       echo "Running Unit Tests..."
        sh unit_command
+       echo "Running Syntax Tests..."
        sh syntax_command
       }
     }
