@@ -7,6 +7,7 @@ void call(app_env){
       echo "running api tests"
       docker.image("aleckeller13/newman").inside{
         try{
+          unstash "workspace"
           dir('collections') {
             def files = findFiles(glob: '*.json')
             files.each{
