@@ -9,10 +9,8 @@ void call(){
 
   def image_repo_cred = pipelineConfig?.application_image_repository_credential ?:
                         {error "application_image_repository_credential not defined in pipeline config"}()
-  
+
   withCredentials([usernamePassword(credentialsId: image_repo_cred, usernameVariable: 'user', passwordVariable: 'pass')]) {
-    sh "echo username:${user}"
-    sh "echo pass:${pass}"
     sh "echo ${pass} | docker login -u ${user} --password-stdin"
   }
 }
