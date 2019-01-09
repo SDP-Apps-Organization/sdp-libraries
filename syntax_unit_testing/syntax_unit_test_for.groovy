@@ -4,6 +4,8 @@ void call(app_env){
       def img = ""
       def unit_command = ""
       def syntax_command = ""
+      def env_variable = app_env.appName + "_Skip_Tests"
+      def skip_unit_tests = config[env_variable] ?: false
       if (fileExists("package.json")){
         img = "node"
         unit_command = "npm install --only=dev; npm test"
@@ -19,8 +21,6 @@ void call(app_env){
       }
       docker.image(img).inside{
        unstash "workspace"
-       def env_variable = app_env.appName + "_Skip_Tests"
-       def skip_unit_tests = config[env_variable] ?: false
        if (!skip_unit_tests){
          echo "Running Unit Tests..."
          sh unit_command
