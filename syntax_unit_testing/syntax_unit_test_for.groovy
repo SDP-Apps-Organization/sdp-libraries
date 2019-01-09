@@ -6,7 +6,7 @@ void call(app_env){
       def syntax_command = ""
       def env_variable = app_env.appName + "_Skip_Tests"
       def skip_unit_tests = config[env_variable] ?: false
-      echo "ENV VARJIJIJI: " config[env_variable]
+      echo "ENV VARJIJIJI: " + config[env_variable]
       if (fileExists("package.json")){
         img = "node"
         unit_command = "npm install --only=dev; npm test"
