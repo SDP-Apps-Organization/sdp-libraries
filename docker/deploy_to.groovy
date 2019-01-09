@@ -5,7 +5,8 @@ void call(app_env){
       
       //authenticate_to_marketplace()
       retag(env.GIT_SHA,app_env.short_name)
-      sh "ls"
+      sh "cat docker-compose.yml"
+      sh "docker-compose up -d"
     }
   }
 }
