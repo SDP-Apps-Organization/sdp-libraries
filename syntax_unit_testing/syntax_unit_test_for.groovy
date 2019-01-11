@@ -20,7 +20,7 @@ void call(app_env){
         error "Unable to determine language: Must have a package.json or pom.xml"
       }
       docker.image(img).inside{
-       unstash "workspace"
+       //unstash "workspace"
        if (!skip_unit_tests){
          echo "Running Unit Tests..."
          sh unit_command
